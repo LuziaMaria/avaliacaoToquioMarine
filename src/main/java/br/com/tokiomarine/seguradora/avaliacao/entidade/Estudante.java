@@ -36,7 +36,6 @@ public class Estudante {
 	@Column(name = "EMAIL", length = 50, nullable = false)
 	private String email; 			// (com validação para não nulo e mensagem: Email é obrigatório)
 	
-	@NotNull
 	@Column(name = "TELEFONE", length = 15, nullable = false)
 	private String telefone;
 	

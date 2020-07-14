@@ -15,12 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.tokiomarine.seguradora.avaliacao.entidade.Estudante;
 import br.com.tokiomarine.seguradora.avaliacao.service.EstudandeService;
 
-@Controller
-@RequestMapping("/estudantes/")
-public class EstudanteController {
+// @Controller
+// @RequestMapping("/estudantes/")
+ public class EstudanteController {
 
 	// TODO efetue a correção dos problemas que existem na classe Estudante Controller
-	@Autowired
+	 /*	@Autowired
 	EstudandeService estudanteService;
 
 	@GetMapping("criar")
@@ -72,4 +72,5 @@ public class EstudanteController {
 		model.addAttribute("estudantes", estudanteService.buscarEstudantes());
 		return "index";
 	}
-}
+	*/
+} 

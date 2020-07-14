@@ -6,8 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.tokiomarine.seguradora.avaliacao.dto.EstudanteDTO;
 import br.com.tokiomarine.seguradora.avaliacao.entidade.Estudante;
+import br.com.tokiomarine.seguradora.avaliacao.mapper.EstudanteMapper;
 import br.com.tokiomarine.seguradora.avaliacao.service.EstudandeService;
 
 // TODO não esquecer de usar as anotações para criação do restcontroller
@@ -30,8 +32,13 @@ public class EstudanteRestController {
 
 	// TODO efetue a correção dos problemas que existem na classe Estudante
 	// Controller
+	
 	@Autowired
-	EstudandeService estudanteService;
+	private EstudandeService estudanteService;
+	
+	@Autowired 
+	private EstudanteMapper estudanteMapper;
+
 
 	// TODO caso você não conheça THEMELEAF faça a implementação dos métodos em
 	// forma de RESTCONTROLLER (seguindo o padrão RESTFUL)
@@ -44,27 +51,28 @@ public class EstudanteRestController {
 
 	// TODO IMPLEMENTAR A EXCLUSÃO DE ESTUDANTES (DELETE)
 
-	/*
+
 	@GetMapping("listar")
-	public List<Estudante> listar() {
-		return estudanteService.buscarEstudantes();
+	public List<EstudanteDTO> listar() {
+		return estudanteMapper.toCollectionModel(estudanteService.buscarEstudantes());
 	}
 
 	@PostMapping("add")
-	public Estudante adicionar(@RequestBody @Valid Estudante estudante) {
-		return estudanteService.cadastrarEstudante(estudante);
+	@ResponseStatus(HttpStatus.CREATED)
+	public EstudanteDTO adicionar(@RequestBody @Valid Estudante estudante) {
+		return estudanteMapper.converterModeloToDto(estudanteService.cadastrarEstudante(estudante));
 	}
 
 	@PutMapping("atualizar/{id}")
-	public Estudante atualizar(@PathVariable("id") long id, @RequestBody Estudante estudante) {
+	public EstudanteDTO atualizar(@PathVariable("id") long id, @RequestBody Estudante estudante) {
 		Estudante estudanteAtual = estudanteService.buscarEstudante(id);
 		BeanUtils.copyProperties(estudante, estudanteAtual, "id");
-		return estudanteService.cadastrarEstudante(estudanteAtual);
+		return estudanteMapper.converterModeloToDto(estudanteService.cadastrarEstudante(estudanteAtual));
 	}
 
 	@DeleteMapping("apagar/{id}")
 	public void remover(@PathVariable("id") long id) {
 		estudanteService.apagarEstudante(id);
 	}
-	*/
+	
 }
